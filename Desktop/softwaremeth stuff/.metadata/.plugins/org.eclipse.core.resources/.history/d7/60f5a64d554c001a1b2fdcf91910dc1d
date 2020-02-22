@@ -1,0 +1,90 @@
+import java.util.StringTokenizer;
+
+/**
+  
+ @author  
+ */
+public class Date 
+{
+   private int  day;
+   private int  month;
+   private int  year;
+   
+   public Date(String d)
+   {
+      //use StringTokenizer to parse the String and create a Date object
+      StringTokenizer st = new StringTokenizer(d, "/");
+      int day = Integer.parseInt(st.nextToken());
+      int month = Integer.parseInt(st.nextToken());
+      int year = Integer.parseInt(st.nextToken());
+      this.day = day;
+      this.month = month;
+      this.year = year;
+
+
+   }
+   
+   public Date(Date d)
+   {
+      //this is a constructor
+       // ask if we can change constructor parameters
+	   d.day = this.day;
+	   d.month = this.month;
+	   d.year = this.year;
+
+   }      
+   
+   public boolean isValid()
+   {
+	   boolean monthValidity = false;
+       if(month > 12 || month <= 0) {
+    	   monthValidity =  false;
+       }
+	   boolean dayValidity =  true;
+       if(day == 28 || day == 29) {
+    	   if(this.month == 2) {
+    		   // write leap year check here
+    		   dayValidity = true;
+    	   }else {
+    		   dayValidity = false;
+    	   }
+       }
+       if(day == 31) {
+    	   if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+    		   dayValidity = true;
+    	   }else{
+    		   dayValidity = false;
+    	   }
+       }
+      boolean yearValidity = false;
+       if(year > 0 && year < 3000) {
+    	   yearValidity = true;
+       }
+       if(dayValidity && monthValidity && yearValidity) {
+    	   return true;
+       }else{
+    	   return false;
+       }
+   }
+   
+   @Override
+   public String toString()
+   {
+       //use the format "month/day/year"
+	   return month+ "//" + day +"//"+ year + "//";
+   }
+   
+   @Override
+   public boolean equals(Object obj)
+   {
+	   Date comparison = (Date) obj;
+	   if (this.day == comparison.day && this.month == comparison.month && this.year == comparison.month) {
+		   return true;
+	   }else{
+		   return false; 
+	   }
+    // ask abouth this one    
+   }  
+}
+
+

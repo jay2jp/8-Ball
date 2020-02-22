@@ -1,0 +1,87 @@
+/**
+  The TeamMember class creates an object with a name and start date. 
+ @author Lauren Sousa  
+ */
+public class TeamMember 
+{
+   private String name;
+   private Date   startDate;
+   
+   /**
+    Creates a TeamMember object using the given name and start date.
+    @param name and start date of the TeamMember to be created
+    */
+   
+   public TeamMember(String nm, Date date)
+   {
+	   this.name = nm;
+       this.startDate = date;
+   }
+   
+   /**
+    Finds the start date for a TeamMember
+    @return start date of the TeamMember
+    */
+   
+   public Date getStartDate()
+   {
+      return startDate;
+   }
+   
+   /** 
+    Checks if two TeamMembers have the same name and start date.
+    @param Object to be compared
+    @return true if the objects have the same name and start date, false otherwise.
+    */
+   
+   public boolean equals(Object obj)
+   {
+      //name and startDate must be the same
+	   if(obj.name.equals(this.name) && obj.startDate.equals(this.startDate)){
+		   return true;
+	   }
+	   return false; 
+   }  
+   
+   /**
+    Creates string containing the name of a TeamMember, followed by a space and their start date. 
+    @return String containing the name of a TeamMember, followed by a space and their start date. 
+    */
+   
+   public String toString()
+   {
+       //name + " " + startDate;
+	   return this.name + " " + this.startDate.toString();
+   }
+ 
+ 
+   public static void main(String [] args)
+   {
+      //testbed main; you must include test cases that exercise 
+      //the constructor and all methods in this class.
+	   Date testDate1 = new Date("11/12/12");
+	   Date testDate2 = new Date("11/12/13");
+	   Date testDate3 = new Date("11/12/12");
+	   
+	   TeamMember testTeamMember1 = new TeamMember ("Lily", testDate1);
+	   TeamMember testTeamMember2 = new TeamMember ("Bryan", testDate2);
+	   TeamMember testTeamMember3 = new TeamMember ("Lily", testDate3);
+	   
+	   if(testTeamMember1.toString().equals("Lily 11/12/12")){
+		   System.out.print("Constructor and toString method works");
+	   }
+	   
+	   if(testTeamMember1.getStartDate().equals("testDate")){
+		   System.out.print("getStartDate() method works");
+	   }
+	   
+	   if(testTeamMember1.equals(testTeamMember2)==false){
+		   System.out.print("equals() method works when team members are unequal");
+	   }
+	   
+	   if(testTeamMember1.equals(testTeamMember3)==true){
+		   System.out.print("equals() method works when team members are equal");
+	   }
+	   
+   }
+}

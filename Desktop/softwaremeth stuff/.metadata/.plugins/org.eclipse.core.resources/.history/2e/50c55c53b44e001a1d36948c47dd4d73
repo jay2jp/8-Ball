@@ -1,0 +1,167 @@
+import java.util.StringTokenizer;
+
+/**
+ * Standard date class that accepts strings 
+ *@author Jay Patel
+ *@return will return a date class
+ */
+public class Date 
+{
+   private int  day;
+   private int  month;
+   private int  year;
+   /**
+   *@author Jay Patel
+   *@param date a string formatted in classic date format  mm/dd/yyyy
+   *@return will return a date class
+   */
+   public Date(String date)
+   {
+      //use StringTokenizer to parse the String and create a Date object
+      StringTokenizer st = new StringTokenizer(date, "/");
+      int month = Integer.parseInt(st.nextToken());
+
+      int day = Integer.parseInt(st.nextToken());
+      
+      int year = Integer.parseInt(st.nextToken());
+
+      this.day = day;
+      this.month = month;
+      this.year = year;
+
+
+   }
+   /**
+   Standard constructor 
+   *@author Jay Patel
+   *@param Date object in order to return a date
+   *@return will return a date class
+   */
+   public Date(Date d)
+   {
+      //this is a constructor
+       // ask if we can change constructor parameters
+	   d.day = this.day;
+	   d.month = this.month;
+	   d.year = this.year;
+
+   }      
+/**
+   *will check the validity of the date
+   *@author Jay Patel
+   *@return Boolean
+   */
+   
+   public boolean isValid()
+   {
+	   boolean monthValidity = true;
+       if(this.month > 12 || this.month <= 0) {
+    	   monthValidity =  false;
+       }
+	   boolean dayValidity =  true;
+       if(this.day == 28 || this.day == 29) {
+    	   if(this.month == 2) {
+    		   // write leap year check here
+    		   int divideBy4 = this.year % 4;
+    		   if(divideBy4 == 0) {
+    			   if((this.year % 100) == 0) {
+    				   if((this.year % 400) == 0) {
+    					   dayValidity = true;
+    				   }else {
+    					   dayValidity = false;
+    				   }
+    			   }else {
+    				   dayValidity = false;
+    				 
+    			   }
+    		   }else {
+    			   dayValidity  = false;
+    		   }
+    		   if(this.day == 28) {
+    			 dayValidity = true;
+    		   }
+    		   
+    	   }else {
+    		   dayValidity = false;
+    	   }
+       }
+       if(this.day == 31) {
+    	   if(this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7 || this.month == 8 || this.month == 10 || this.month == 12) {
+    		   dayValidity = true;
+    	   }else{
+    		   dayValidity = false;
+    	   }
+       }
+      boolean yearValidity = false;
+       if(this.year > 0 ) {
+    	   yearValidity = true;
+       }
+       if(dayValidity && monthValidity && yearValidity) {
+    	   return true;
+       }else{
+    	   return false;
+       }
+   }
+/**
+   *will return a string of the date formatted like mm/dd/yyyy
+   *@author Jay Patel
+   *@param Date object in order to return a date
+   *@return string
+   */
+   
+   @Override
+   public String toString()
+   {
+       //use the format "month/day/year"
+	   return this.month+ "/" + this.day +"/"+ this.year;
+   }
+/**
+   *will check if both date objects are equal 
+   *@author Jay Patel
+   *@param Date object in order to return a date
+   *@return boolean
+   */
+   @Override
+   public boolean equals(Object obj)
+   {
+	   Date comparison = (Date) obj;
+	   System.out.println("this is comparison");
+	   System.out.println(comparison.toString());
+	   if (this.day == comparison.day && this.month == comparison.month && this.year == comparison.month) {
+		   return true;
+	   }else{
+		   return false; 
+	   }
+    // ask abouth this one    
+   } 
+   
+   public static void main(String [] args) {
+	   // Test Bed
+	   Date firstTest = new Date("12/13/2019");
+	   Date secondTest = new Date("12/13/2019");
+	   Date thirdTest = new Date("12/14/2019");
+	   if(firstTest.equals(secondTest)) {
+		   System.out.println("equality test works when valid");
+	   }
+	   if(firstTest.equals(thirdTest)){
+		   System.out.println("equality test works when false as well");
+	   }
+	  Date invalidDate = new Date("14/3/2019");
+	  if(invalidDate.isValid()) {
+		  System.out.println("date is validity is broken");
+		  
+	  }else{
+		  System.out.println("date is validity works");
+	  }
+	  if("12/13/2019".contentEquals(firstTest.toString())){
+		  
+		  System.out.println("toString works");
+	  }else{
+		  System.out.println(firstTest.toString());
+		  System.out.println("toString is broken");
+	  }
+   }
+   
+}
+
+

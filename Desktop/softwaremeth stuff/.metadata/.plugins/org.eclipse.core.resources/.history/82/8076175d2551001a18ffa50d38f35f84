@@ -1,0 +1,105 @@
+import java.util.Scanner;
+
+/**
+ * 
+ *@author Jay Patel
+ *@return this runs the entire project managment program  
+ */
+ 
+public class ProjectManager
+{
+   
+   Scanner stdin  = new Scanner(System.in);
+   Team cs213 = new Team();
+   public void run()
+   {
+	  System.out.println("Lets start a Team");
+      boolean done = false;
+      while ( !done )
+      {
+         String command = stdin.next();
+         switch (command)
+         {   
+            case "A": add(stdin.next(),stdin.next());
+		      break; 
+            case "R": remove();
+               break;
+            case "P": print();
+               break;
+            case "Q": print(); System.out.println("The team is ready to go!");
+               break;
+            default: System.out.println("your command is invalid");
+         }  
+      }
+   } //run()
+   /**
+   *this method adds members to the team
+   *@author Jay Patel
+   *@return null 
+   */
+   private void add(String name, String date)
+   {
+	   Date day = new Date(date);
+	   if(day.isValid() == false) {
+		   System.out.println(date  + " is not a valid date");
+		   return;
+	   }
+	   TeamMember current = new TeamMember(name,day);
+	   if(cs213.contains(current)) {
+		   System.out.println(name+ " " + date+ "  is already in the team.");
+	   }
+	   
+	   cs213.add(current);
+	   System.out.println(name+ " " + date+ " has joined the team.");
+	   
+	//must check if the date is valid
+	//must call the contains() method to check if a given 
+	//team member is in the team already
+	   
+   }
+   /**
+    * 
+   *this method removes members from the team
+   *@author Jay Patel
+   *@return null
+   */
+   
+   private void remove()
+   {
+	   String name = stdin.next();
+	   String date = stdin.next();
+	   Date day = new Date(date);
+	   if(day.isValid() == false) {
+		   System.out.println("the date is not valid");
+	   }
+	   TeamMember current = new TeamMember(name,day);
+	   if(cs213.contains(current) == false) {
+		   System.out.println(name + " " +date + " is not a team member.");
+		   return;
+	   }
+	   cs213.remove(current);
+	   System.out.println(name + " " +date + " has left the team.");
+	   return;
+      //must check if the date is valid
+	   
+   }
+   /**
+   *this method prints all team members 
+   *@author Jay Patel
+   *@return null
+   */
+   
+   private void print()
+   {
+	   if (cs213.isEmpty()) {
+		   System.out.println("We have 0 team member!");
+		   
+	   }else {
+		  System.out.println("We have the following team members: ");
+		  cs213.print();
+		  System.out.println("-- end of the list --");
+	   }
+	   
+      //must check if the team has 0 members. 
+   }   
+} //ProjectManager
